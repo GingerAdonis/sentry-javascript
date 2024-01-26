@@ -99,7 +99,12 @@ export {
 // Keeping the `*` exports for backwards compatibility and types
 export * from '@sentry/node';
 
-export { captureRemixServerException, wrapRemixHandleError } from './utils/instrumentServer';
+export {
+  captureRemixServerException,
+  wrapRemixHandleError,
+  sentryHandleError,
+  wrapHandleErrorWithSentry,
+} from './utils/instrumentServer';
 export { ErrorBoundary, withErrorBoundary } from '@sentry/react';
 // eslint-disable-next-line deprecation/deprecation
 export { remixRouterInstrumentation, withSentry } from './client/performance';
