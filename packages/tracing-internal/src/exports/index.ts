@@ -3,7 +3,7 @@ export {
   getActiveTransaction,
   hasTracingEnabled,
   IdleTransaction,
-  Span,
+  SentrySpan,
   // eslint-disable-next-line deprecation/deprecation
   SpanStatus,
   startIdleTransaction,

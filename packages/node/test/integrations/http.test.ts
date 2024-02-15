@@ -1,6 +1,5 @@
 import * as http from 'http';
 import * as https from 'https';
-import type { Span } from '@sentry/core';
 import { Transaction } from '@sentry/core';
 import { getCurrentScope, makeMain, setUser, spanToJSON, startInactiveSpan } from '@sentry/core';
 import { Hub, addTracingExtensions } from '@sentry/core';
@@ -33,7 +32,7 @@ describe('tracing', () => {
   function createTransactionOnScope(
     customOptions: Partial<NodeClientOptions> = {},
     customContext?: Partial<TransactionContext>,
-  ) {
+  ): Transaction {
     setupMockHub(customOptions);
     addTracingExtensions();
 
@@ -52,7 +51,7 @@ describe('tracing', () => {
     // eslint-disable-next-line deprecation/deprecation
     getCurrentScope().setSpan(transaction);
 
-    return transaction;
+    return transaction as Transaction;
   }
 
   function setupMockHub(customOptions: Partial<NodeClientOptions> = {}) {
@@ -79,7 +78,7 @@ describe('tracing', () => {
 
     const transaction = createTransactionOnScope();
     // eslint-disable-next-line deprecation/deprecation
-    const spans = (transaction as unknown as Span).spanRecorder?.spans as Span[];
+    const spans = transaction.spanRecorder?.spans || [];
 
     http.get('http://dogs.are.great/');
 
@@ -97,7 +96,7 @@ describe('tracing', () => {
 
     const transaction = createTransactionOnScope();
     // eslint-disable-next-line deprecation/deprecation
-    const spans = (transaction as unknown as Span).spanRecorder?.spans as Span[];
+    const spans = transaction.spanRecorder?.spans || [];
 
     http.get('http://squirrelchasers.ingest.sentry.io/api/12312012/store/');
 
@@ -288,7 +287,7 @@ describe('tracing', () => {
 
     const transaction = createTransactionOnScope();
     // eslint-disable-next-line deprecation/deprecation
-    const spans = (transaction as unknown as Span).spanRecorder?.spans as Span[];
+    const spans = transaction.spanRecorder?.spans || [];
 
     http.get('http://dogs.are.great/spaniel?tail=wag&cute=true#learn-more');
 
@@ -313,7 +312,7 @@ describe('tracing', () => {
 
     const transaction = createTransactionOnScope();
     // eslint-disable-next-line deprecation/deprecation
-    const spans = (transaction as unknown as Span).spanRecorder?.spans as Span[];
+    const spans = transaction.spanRecorder?.spans || [];
 
     http.request({ method: 'GET', host: 'dogs.are.great', path: '/spaniel?tail=wag&cute=true#learn-more' });
 
@@ -343,7 +342,7 @@ describe('tracing', () => {
 
     const transaction = createTransactionOnScope();
     // eslint-disable-next-line deprecation/deprecation
-    const spans = (transaction as unknown as Span).spanRecorder?.spans as Span[];
+    const spans = transaction.spanRecorder?.spans || [];
 
     http.get(`http://${auth}@dogs.are.great/`);
 
@@ -380,12 +379,12 @@ describe('tracing', () => {
       return hub;
     }
 
-    function createTransactionAndPutOnScope() {
+    function createTransactionAndPutOnScope(): Transaction {
       addTracingExtensions();
       const transaction = startInactiveSpan({ name: 'dogpark' });
       // eslint-disable-next-line deprecation/deprecation
       getCurrentScope().setSpan(transaction);
-      return transaction;
+      return transaction as Transaction;
     }
 
     describe('as client options', () => {
@@ -405,7 +404,7 @@ describe('tracing', () => {
 
         const transaction = createTransactionAndPutOnScope();
         // eslint-disable-next-line deprecation/deprecation
-        const spans = (transaction as unknown as Span).spanRecorder?.spans as Span[];
+        const spans = transaction.spanRecorder?.spans || [];
 
         const request = http.get(url);
 
@@ -515,7 +514,7 @@ describe('tracing', () => {
 
         const transaction = createTransactionAndPutOnScope();
         // eslint-disable-next-line deprecation/deprecation
-        const spans = (transaction as unknown as Span).spanRecorder?.spans as Span[];
+        const spans = transaction.spanRecorder?.spans || [];
 
         const request = http.get(url);
 

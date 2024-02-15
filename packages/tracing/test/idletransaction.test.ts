@@ -14,7 +14,7 @@ import {
   startSpanManual,
 } from '@sentry/core';
 
-import { IdleTransaction, Span, getClient } from '../../core/src';
+import { IdleTransaction, SentrySpan, getClient } from '../../core/src';
 import { IdleTransactionSpanRecorder } from '../../core/src/tracing/idletransaction';
 import { getDefaultBrowserClientOptions } from './testutils';
 
@@ -522,7 +522,7 @@ describe('IdleTransactionSpanRecorder', () => {
     expect(mockPushActivity).toHaveBeenCalledTimes(0);
     expect(mockPopActivity).toHaveBeenCalledTimes(0);
 
-    const span = new Span({ sampled: true });
+    const span = new SentrySpan({ sampled: true });
 
     expect(spanRecorder.spans).toHaveLength(0);
     spanRecorder.add(span);
@@ -543,7 +543,7 @@ describe('IdleTransactionSpanRecorder', () => {
     const mockPopActivity = jest.fn();
     const spanRecorder = new IdleTransactionSpanRecorder(mockPushActivity, mockPopActivity, '', 10);
 
-    const span = new Span({ sampled: true, startTimestamp: 765, endTimestamp: 345 });
+    const span = new SentrySpan({ sampled: true, startTimestamp: 765, endTimestamp: 345 });
     spanRecorder.add(span);
 
     expect(mockPushActivity).toHaveBeenCalledTimes(0);

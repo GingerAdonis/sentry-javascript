@@ -1,6 +1,6 @@
 import type { Span, SpanJSON, SpanTimeInput, TraceContext } from '@sentry/types';
 import { dropUndefinedKeys, generateSentryTraceHeader, timestampInSeconds } from '@sentry/utils';
-import type { Span as SpanClass } from '../tracing/span';
+import type { SentrySpan } from '../tracing/span';
 
 // These are aligned with OpenTelemetry trace flags
 export const TRACE_FLAG_NONE = 0x0;
@@ -90,8 +90,8 @@ export function spanToJSON(span: Span): Partial<SpanJSON> {
  * Sadly, due to circular dependency checks we cannot actually import the Span class here and check for instanceof.
  * :( So instead we approximate this by checking if it has the `getSpanJSON` method.
  */
-function spanIsSpanClass(span: Span): span is SpanClass {
-  return typeof (span as SpanClass).getSpanJSON === 'function';
+function spanIsSpanClass(span: Span): span is SentrySpan {
+  return typeof (span as SentrySpan).getSpanJSON === 'function';
 }
 
 /**

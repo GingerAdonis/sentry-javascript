@@ -13,7 +13,7 @@ import {
   Mysql,
   Postgres,
   Prisma,
-  Span as SpanT,
+  SentrySpan as SentrySpanT,
   SpanStatus as SpanStatusT,
   TRACEPARENT_REGEXP as TRACEPARENT_REGEXP_T,
   Transaction as TransactionT,
@@ -25,6 +25,7 @@ import {
   startIdleTransaction as startIdleTransactionT,
   stripUrlQueryAndFragment as stripUrlQueryAndFragmentT,
 } from '@sentry-internal/tracing';
+import { SentrySpan } from '@sentry/core';
 
 // BrowserTracing is already exported as part of `Integrations` below (and for the moment will remain so for
 // backwards compatibility), but that interferes with treeshaking, so we also export it separately
@@ -89,16 +90,16 @@ export type Transaction = TransactionT;
 /**
  * @deprecated `@sentry/tracing` has been deprecated and will be moved to to `@sentry/node`, `@sentry/browser`, or your framework SDK in the next major version.
  *
- * `Span` can be imported from `@sentry/node`, `@sentry/browser`, or your framework SDK
+ * `SentrySpan` can be imported from `@sentry/node`, `@sentry/browser`, or your framework SDK
  */
-export const Span = SpanT;
+export const SentrySpan = SentrySpanT;
 
 /**
  * @deprecated `@sentry/tracing` has been deprecated and will be moved to to `@sentry/node`, `@sentry/browser`, or your framework SDK in the next major version.
  *
- * `Span` can be imported from `@sentry/node`, `@sentry/browser`, or your framework SDK
+ * `SentrySpan` can be imported from `@sentry/node`, `@sentry/browser`, or your framework SDK
  */
-export type Span = SpanT;
+export type SentrySpan = SentrySpanT;
 
 /**
  * @deprecated `@sentry/tracing` has been deprecated and will be moved to to `@sentry/node`, `@sentry/browser`, or your framework SDK in the next major version.
