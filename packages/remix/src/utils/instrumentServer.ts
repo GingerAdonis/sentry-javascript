@@ -195,7 +195,7 @@ function makeWrappedDocumentRequestFunction(remixVersion?: number) {
         const span = activeTransaction?.startChild({
           op: 'function.remix.document_request',
           origin: 'auto.function.remix',
-          description: spanToJSON(activeTransaction).description,
+          name: spanToJSON(activeTransaction).description,
           tags: {
             method: request.method,
             url: request.url,
@@ -252,7 +252,7 @@ function makeWrappedDataFunction(
       const span = activeTransaction?.startChild({
         op: `function.remix.${name}`,
         origin: 'auto.ui.remix',
-        description: id,
+        name: id,
         tags: {
           name,
         },

@@ -206,7 +206,7 @@ function createAndFinishSpanForOtelSpan(node: SpanNode, sentryParentSpan: Sentry
 
   // eslint-disable-next-line deprecation/deprecation
   const sentrySpan = sentryParentSpan.startChild({
-    description,
+    name: description,
     op,
     data: allData,
     status: mapStatus(span),

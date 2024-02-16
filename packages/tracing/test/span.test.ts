@@ -102,9 +102,9 @@ describe('SentrySpan', () => {
 
     test('setName', () => {
       const span = new SentrySpan({});
-      expect(span.description).toBeUndefined();
+      expect(span.name).toBeUndefined();
       span.updateName('foo');
-      expect(span.description).toBe('foo');
+      expect(span.name).toBe('foo');
     });
   });
 
@@ -521,7 +521,7 @@ describe('SentrySpan', () => {
         traceId: 'a',
         spanId: 'b',
         sampled: false,
-        description: 'test',
+        name: 'test',
         op: 'op',
       };
       const span = new SentrySpan(originalContext);
@@ -546,7 +546,7 @@ describe('SentrySpan', () => {
         traceId: 'a',
         spanId: 'b',
         sampled: false,
-        description: 'test',
+        name: 'test',
         op: 'op',
         tags: {
           tag0: 'hello',
@@ -563,7 +563,7 @@ describe('SentrySpan', () => {
       expect(span.spanContext().traceId).toBe('c');
       expect(span.spanContext().spanId).toBe('d');
       expect(span.sampled).toBe(true);
-      expect(span.description).toBe(undefined);
+      expect(span.name).toBe(undefined);
       expect(span.op).toBe(undefined);
       expect(span.tags).toStrictEqual({});
     });
@@ -573,7 +573,7 @@ describe('SentrySpan', () => {
         traceId: 'a',
         spanId: 'b',
         sampled: false,
-        description: 'test',
+        name: 'test',
         op: 'op',
         tags: { tag0: 'hello' },
         data: { data0: 'foo' },
@@ -582,7 +582,7 @@ describe('SentrySpan', () => {
 
       const newContext = {
         ...span.toContext(),
-        description: 'new',
+        name: 'new',
         endTimestamp: 1,
         op: 'new-op',
         sampled: true,
@@ -600,7 +600,7 @@ describe('SentrySpan', () => {
 
       expect(span.spanContext().traceId).toBe('a');
       expect(span.spanContext().spanId).toBe('b');
-      expect(span.description).toBe('new');
+      expect(span.name).toBe('new');
       expect(spanToJSON(span).timestamp).toBe(1);
       expect(span.op).toBe('new-op');
       expect(span.sampled).toBe(true);
