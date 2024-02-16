@@ -102,9 +102,9 @@ describe('SentrySpan', () => {
 
     test('setName', () => {
       const span = new SentrySpan({});
-      expect(span.name).toBeUndefined();
+      expect(spanToJSON(span).description).toBeUndefined();
       span.updateName('foo');
-      expect(span.name).toBe('foo');
+      expect(spanToJSON(span).description).toBe('foo');
     });
   });
 
@@ -563,7 +563,7 @@ describe('SentrySpan', () => {
       expect(span.spanContext().traceId).toBe('c');
       expect(span.spanContext().spanId).toBe('d');
       expect(span.sampled).toBe(true);
-      expect(span.name).toBe(undefined);
+      expect(spanToJSON(span).description).toBe(undefined);
       expect(span.op).toBe(undefined);
       expect(span.tags).toStrictEqual({});
     });
@@ -600,7 +600,7 @@ describe('SentrySpan', () => {
 
       expect(span.spanContext().traceId).toBe('a');
       expect(span.spanContext().spanId).toBe('b');
-      expect(span.name).toBe('new');
+      expect(spanToJSON(span).description).toBe('new');
       expect(spanToJSON(span).timestamp).toBe(1);
       expect(span.op).toBe('new-op');
       expect(span.sampled).toBe(true);

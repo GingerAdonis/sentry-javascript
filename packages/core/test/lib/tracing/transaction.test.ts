@@ -24,7 +24,7 @@ describe('transaction', () => {
       transaction.setAttribute(SEMANTIC_ATTRIBUTE_SENTRY_SOURCE, 'route');
       expect(transaction.name).toEqual('span name');
 
-      transaction.setName('new name');
+      transaction.updateName('new name');
 
       expect(transaction.name).toEqual('new name');
       expect(transaction.metadata.source).toEqual('custom');
