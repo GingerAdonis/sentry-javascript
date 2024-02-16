@@ -373,12 +373,6 @@ export interface Span extends Omit<SpanContext, 'op' | 'status' | 'origin'> {
   isSuccess(): boolean;
 
   /**
-   * Return a traceparent compatible header string.
-   * @deprecated Use `spanToTraceHeader()` instead.
-   */
-  toTraceparent(): string;
-
-  /**
    * Returns the current span properties as a `SpanContext`.
    * @deprecated Use `toJSON()` or access the fields directly instead.
    */
