@@ -19,6 +19,7 @@ export { createGetModuleFromFilename } from './utils/module';
 export { makeNodeTransport } from './transports';
 // eslint-disable-next-line deprecation/deprecation
 export { getCurrentHub } from './sdk/hub';
+export { cron } from './cron';
 
 export type { Span, NodeOptions } from './types';
 
@@ -35,7 +36,6 @@ export {
   contextLinesIntegration,
   nodeContextIntegration,
   localVariablesIntegration,
-  cron,
 } from '@sentry/node';
 
 export {
