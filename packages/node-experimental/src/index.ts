@@ -14,35 +14,19 @@ export { prismaIntegration } from './integrations/tracing/prisma';
 export { init, getDefaultIntegrations } from './sdk/init';
 export { getAutoPerformanceIntegrations } from './integrations/tracing';
 export * as Handlers from './sdk/handlers';
-export type { Span } from './types';
-
-export { startSpan, startSpanManual, startInactiveSpan, getActiveSpan, withActiveSpan } from '@sentry/opentelemetry';
 export { getClient, getSentryRelease, defaultStackParser } from './sdk/api';
 export { createGetModuleFromFilename } from './utils/module';
+export { makeNodeTransport } from './transports';
 // eslint-disable-next-line deprecation/deprecation
 export { getCurrentHub } from './sdk/hub';
 
+export type { Span, NodeOptions } from './types';
+
+export { startSpan, startSpanManual, startInactiveSpan, getActiveSpan, withActiveSpan } from '@sentry/opentelemetry';
+
+export { addRequestDataToEvent, DEFAULT_USER_INCLUDES, extractRequestData } from '@sentry/utils';
+
 export {
-  addBreadcrumb,
-  isInitialized,
-  makeNodeTransport,
-  getGlobalScope,
-  addRequestDataToEvent,
-  DEFAULT_USER_INCLUDES,
-  extractRequestData,
-  // eslint-disable-next-line deprecation/deprecation
-  getModuleFromFilename,
-  close,
-  createTransport,
-  flush,
-  Hub,
-  // eslint-disable-next-line deprecation/deprecation
-  runWithAsyncContext,
-  SDK_VERSION,
-  getSpanStatusFromHttpCode,
-  setHttpStatus,
-  captureCheckIn,
-  withMonitor,
   hapiErrorPlugin,
   consoleIntegration,
   onUncaughtExceptionIntegration,
@@ -51,6 +35,22 @@ export {
   contextLinesIntegration,
   nodeContextIntegration,
   localVariablesIntegration,
+  cron,
+} from '@sentry/node';
+
+export {
+  addBreadcrumb,
+  isInitialized,
+  getGlobalScope,
+  close,
+  createTransport,
+  flush,
+  Hub,
+  SDK_VERSION,
+  getSpanStatusFromHttpCode,
+  setHttpStatus,
+  captureCheckIn,
+  withMonitor,
   requestDataIntegration,
   functionToStringIntegration,
   inboundFiltersIntegration,
@@ -70,10 +70,7 @@ export {
   Scope,
   setMeasurement,
   continueTrace,
-  cron,
   parameterize,
-  // eslint-disable-next-line deprecation/deprecation
-  makeMain,
   getCurrentScope,
   getIsolationScope,
   withScope,
@@ -81,12 +78,9 @@ export {
   captureException,
   captureEvent,
   captureMessage,
-} from '@sentry/node';
+} from '@sentry/core';
 
 export type {
-  SpanStatusType,
-  TransactionNamingScheme,
-  AddRequestDataToEventOptions,
   Breadcrumb,
   BreadcrumbHint,
   PolymorphicRequest,
@@ -100,6 +94,6 @@ export type {
   StackFrame,
   Stacktrace,
   Thread,
+  Transaction,
   User,
-  NodeOptions,
-} from '@sentry/node';
+} from '@sentry/types';
